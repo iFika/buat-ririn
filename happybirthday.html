@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahhh... Baru bisa dibuka nanti..</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 1rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown div {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            width: 80px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .countdown div span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .countdown div span.number {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <div>
+            <span class="number" id="days">0</span>
+            <span>Days</span>
+        </div>
+        <div>
+            <span class="number" id="hours">0</span>
+            <span>Hours</span>
+        </div>
+        <div>
+            <span class="number" id="minutes">0</span>
+            <span>Minutes</span>
+        </div>
+        <div>
+            <span class="number" id="seconds">0</span>
+            <span>Seconds</span>
+        </div>
+        <h3>Yahhh baru bisa dibuka nantiii:( - Michael</h3>
+       
+    </div>
+
+    <script>
+        function startCountdown(endDate) {
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = endDate - now;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.querySelector('.countdown').innerHTML = "<h1>Happy Birthday!!</h1>";
+                    setTimeout(() => {
+                    document.location.href = "/foryou.html"
+                    }, 5000);
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
+
+            const interval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
+
+        const targetDate = new Date("2025-01-05T19:00:00").getTime();
+        // 5 days from now
+        startCountdown(targetDate);
+    </script>
+</body>
+</html>
